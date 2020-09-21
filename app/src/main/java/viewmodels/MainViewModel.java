@@ -11,8 +11,10 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import DAO.Variables;
-import dagger.ApiComponent;
-import dagger.DaggerApiComponent;
+import dagger.api.ApiComponent;
+
+
+import dagger.api.DaggerApiComponent;
 import entities.Movie;
 import entities.ResultMovie;
 import io.reactivex.Single;

@@ -1,8 +1,10 @@
-package dagger;
+package dagger.api;
 
 import javax.inject.Singleton;
 
 import DAO.Variables;
+import dagger.Module;
+import dagger.Provides;
 import entities.ResultMovie;
 import io.reactivex.Single;
 import io.reactivex.subjects.PublishSubject;

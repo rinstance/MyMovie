@@ -7,23 +7,28 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.mymovies.MainActivity;
 import com.example.mymovies.R;
 
-import java.util.ArrayList;
+import javax.inject.Inject;
 
-import adapters.RecyclerViewAdapter;
+import DAO.room.AppDatabase;
+import DAO.room.MovieDAO;
+
+import dagger.room.DaggerRoomComponent;
+import dagger.room.RoomComponent;
+import dagger.room.RoomModule;
 import entities.Movie;
 import viewmodels.MainViewModel;
 
 public class FavouriteFragment extends MainFragment {
     private MainViewModel model;
     private LiveData<Movie> liveData;
+    @Inject
+    MovieDAO movieDAO;
 
     @Nullable
     @Override
@@ -47,12 +52,21 @@ public class FavouriteFragment extends MainFragment {
         super.onActivityCreated(savedInstanceState);
         model = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
         updateAdapter();
+        setDagger();
+    }
+
+    private void setDagger() {
+        RoomComponent roomComponent = DaggerRoomComponent
+                .builder()
+                .roomModule(new RoomModule(getActivity()))
+                .build();
+        roomComponent.injectFavouriteFragment(this);
     }
 
     private void updateAdapter() {
         liveData = model.getMovieForFavourites();
         liveData.observe(getViewLifecycleOwner(), movie -> {
-            /*** TODO - add to DB*/
+            // TODO: add to DB
         });
     }
 }

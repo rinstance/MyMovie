@@ -41,7 +41,7 @@ dependencies {
     //SwipeLayout
     implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
 
-    //room
+    //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
@@ -61,4 +61,12 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    //realm
+    implementation "io.realm:realm-gradle-plugin:6.0.2"
+
+    //room
+    implementation "androidx.room:room-rxjava2:2.2.5"
+    implementation "androidx.room:room-guava:2.2.5"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 }
