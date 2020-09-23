@@ -3,8 +3,6 @@ package dagger.api;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import dagger.room.RoomModule;
-import fragments.FavouriteFragment;
 import viewmodels.MainViewModel;
 
 @Singleton

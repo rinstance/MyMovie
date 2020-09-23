@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import DAO.Variables;
 import dagger.api.ApiComponent;
 
-
 import dagger.api.DaggerApiComponent;
 import entities.Movie;
 import entities.ResultMovie;
@@ -26,7 +25,6 @@ import network.MovieApi;
 
 public class MainViewModel extends ViewModel {
     private MutableLiveData<ResultMovie> search_movies;
-    private MutableLiveData<Movie> favourites_movies = new MutableLiveData<>();
     private Single<ResultMovie> call;
     private Disposable disposableOnSearchView;
     @Inject
@@ -36,15 +34,6 @@ public class MainViewModel extends ViewModel {
 
     public MainViewModel() {
         setDagger();
-    }
-
-
-    public void setMovieToFavourite(Movie movie) {
-        favourites_movies.postValue(movie);
-    }
-
-    public LiveData<Movie> getMovieForFavourites() {
-        return favourites_movies;
     }
 
     public LiveData<ResultMovie> getMovies() {

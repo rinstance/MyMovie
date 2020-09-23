@@ -13,22 +13,22 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.mymovies.MainActivity;
 import com.example.mymovies.R;
 
-import javax.inject.Inject;
-
-import DAO.room.AppDatabase;
-import DAO.room.MovieDAO;
-
-import dagger.room.DaggerRoomComponent;
-import dagger.room.RoomComponent;
-import dagger.room.RoomModule;
+import DAO.RealmDatabase;
 import entities.Movie;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import viewmodels.MainViewModel;
 
 public class FavouriteFragment extends MainFragment {
     private MainViewModel model;
     private LiveData<Movie> liveData;
-    @Inject
-    MovieDAO movieDAO;
+    private RealmDatabase realmDatabase;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        realmDatabase = new RealmDatabase(getContext());
+    }
 
     @Nullable
     @Override
@@ -45,28 +45,12 @@ public class FavouriteFragment extends MainFragment {
 
     protected void setRecyclerView() {
         super.setRecyclerView();
+        movies.addAll(realmDatabase.getMoviesFromRealm());
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         model = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
-        updateAdapter();
-        setDagger();
-    }
-
-    private void setDagger() {
-        RoomComponent roomComponent = DaggerRoomComponent
-                .builder()
-                .roomModule(new RoomModule(getActivity()))
-                .build();
-        roomComponent.injectFavouriteFragment(this);
-    }
-
-    private void updateAdapter() {
-        liveData = model.getMovieForFavourites();
-        liveData.observe(getViewLifecycleOwner(), movie -> {
-            // TODO: add to DB
-        });
     }
 }

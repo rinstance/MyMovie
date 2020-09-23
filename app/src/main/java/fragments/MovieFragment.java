@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mymovies.R;
 
+import DAO.RealmDatabase;
+import entities.Movie;
 import entities.ResultMovie;
 import io.reactivex.subjects.PublishSubject;
 import viewmodels.MainViewModel;
@@ -23,12 +25,14 @@ public class MovieFragment extends MainFragment {
     private MainViewModel model;
     private SearchView searchView;
     private PublishSubject<String> subject;
+    private RealmDatabase realmDatabase;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
         subject = model.getSubject();
+        realmDatabase = new RealmDatabase(getContext());
     }
 
     @Nullable
@@ -70,13 +74,13 @@ public class MovieFragment extends MainFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("Add to favourites?");
         builder.setMessage("Add to favourites???");
-        builder.setNegativeButton("NO", (dialog, which) -> {
-            dialog.dismiss();
-        });
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            model.setMovieToFavourite(movies.get(position));
-        });
+        builder.setNegativeButton("NO", (dialog, which) -> dialog.dismiss());
+        builder.setPositiveButton("OK", (dialog, which) -> addToDatabase(movies.get(position)));
         builder.show();
+    }
+
+    private void addToDatabase(Movie movie) {
+        realmDatabase.addMoviesToRealm(movie);
     }
 
     protected void setRecyclerView() {

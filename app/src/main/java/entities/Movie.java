@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Movie {
+import io.realm.RealmObject;
+
+public class Movie extends RealmObject {
     @SerializedName("popularity")
     @Expose
     private Double popularity;
@@ -33,9 +35,6 @@ public class Movie {
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Integer> genreIds = null;
     @SerializedName("title")
     @Expose
     private String title;
@@ -121,13 +120,6 @@ public class Movie {
         this.originalTitle = originalTitle;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
 
     public String getTitle() {
         return title;

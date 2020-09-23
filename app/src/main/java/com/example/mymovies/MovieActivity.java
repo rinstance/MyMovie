@@ -27,12 +27,6 @@ public class MovieActivity extends AppCompatActivity implements BottomNavigation
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        MovieFragment fragment = new MovieFragment();
-//        fragmentTransaction.add(R.id.fragment_container, fragment);
-//        fragmentTransaction.commit();
     }
 
     @Override
