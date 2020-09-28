@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.mymovies.MainActivity;
-
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -14,7 +12,6 @@ import DAO.Variables;
 import dagger.api.ApiComponent;
 
 import dagger.api.DaggerApiComponent;
-import entities.Movie;
 import entities.ResultMovie;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
@@ -53,12 +50,7 @@ public class MainViewModel extends ViewModel {
         disposableOnSearchView = subject
                 .debounce(100, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
-                .subscribe(
-                        title -> {
-                            MainActivity.log(title);
-                            getData(title);
-                        }
-                );
+                .subscribe(this::getData);
     }
 
     private void getData(String title) {
