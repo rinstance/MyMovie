@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyMovies</string>
+    <string name="error" type="id">Error</string>
+    <string name="some_error">Some error</string>
+    <string name="success_save">Success save</string>
+    <string name="success_delete">Success delete</string>
 </resources>
